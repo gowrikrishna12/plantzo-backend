@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plantzo Checkout Page</title>
+  <link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+  <header>
+    <h1>Plantzo</h1>
+  </header>
+  <div class="container">
+    <button class="back-button" onclick="goBack()">← Back</button>
+
+    <section class="card">
+      <h2>Enter Delivery Details</h2>
+      <form id="checkout-form">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Full name" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="text" id="phone" placeholder="Enter phone number" maxlength="10" required>
+        </div>
+        <div class="form-group">
+          <label for="address1">Flat, House no., Building</label>
+          <input type="text" id="address1" placeholder="e.g. 123, ABC Apartments" required>
+        </div>
+        <div class="form-group">
+          <label for="address2">Area, Street</label>
+          <input type="text" id="address2" placeholder="e.g. MG Road, Sector 12" required>
+        </div>
+        <div class="form-group">
+          <label for="pincode">Pincode</label>
+          <input type="text" id="pincode" placeholder="6-digit pincode" maxlength="6" required>
+        </div>
+        <div class="form-group">
+          <label for="city">Town/City</label>
+          <input type="text" id="city" placeholder="Enter town or city" required>
+        </div>
+        <div class="form-group">
+          <label for="state">State</label>
+          <input type="text" id="state" placeholder="Enter state" required>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Select Payment Method</h2>
+      <div class="payment-group">
+        <label>
+          <input type="radio" name="payment-method" value="COD" required>
+          Cash on Delivery (COD)
+        </label>
+        <label>
+          <input type="radio" name="payment-method" value="Credit/Debit Card">
+          Credit/Debit Card
+        </label>
+        <label>
+          <input type="radio" name="payment-method" value="Net Banking">
+          Net Banking
+        </label>
+        <label>
+          <input type="radio" name="payment-method" value="UPI">
+          UPI
+        </label>
+      </div>
+    </section>
+
+    <button class="submit-button" onclick="placeOrder()">Place Order</button>
+  </div>
+  <script src="checkout.js"></script>
+</body>
+</html>
