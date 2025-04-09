@@ -148,11 +148,8 @@
    
   </style>
 </head>
-
-
 <body>
-
-  <header>
+<header>
     <nav>
       <div class="logo">PLANTZO</div>
       <ul class="menu">
@@ -202,6 +199,8 @@
         <button onclick="openChatbot()" style="background: none; border: none; cursor: pointer;">
           <img src="/images/chatbot_icon.png.webp" alt="Chatbot Icon" style="width: 35px; height: 35px;">
       <button onclick="logout()">Logout</button>
+      <button id="new-btn" onclick="myOrders()">My Orders</button>
+
       </div>
     </nav>
   </header>
@@ -262,6 +261,11 @@
     function openChatbot() {
       alert('Opening Chatbot...');
     }
+    function myOrders() {
+    // Redirect to the My Orders page
+    console.log("Redirecting to My Orders...");
+    window.location.href = "myorder.html";
+  }
 
     // Carousel Script
     let index = 0;
@@ -421,3 +425,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 </body>
 </html>
             
+            
+            
+
+
+

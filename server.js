@@ -12,7 +12,8 @@
   app.use(cors());
   app.use(express.json()); // Replaces bodyParser.json()
   app.use(express.static(path.join(__dirname, "public"))); // Serves static frontend files
- 
+  app.use('/public1', express.static(path.join(__dirname, 'public/chatbot/public1')));
+  console.log("Serving static files from:", path.join(__dirname, 'public/chatbot/public1'));
 
   const validateObjectId = (req, res, next) => {
     const { id } = req.params;

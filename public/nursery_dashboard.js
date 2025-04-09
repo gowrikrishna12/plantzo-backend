@@ -6,11 +6,7 @@ const logoutButton = document.getElementById("logoutButton");
 // Load Products for Partner
 const loadProducts = async () => {
   const token = localStorage.getItem("token");
-  if (!token) {
-    alert("Please log in first!");
-    window.location.href = "/login.html";
-    return;
-  }
+
 
   try {
     const res = await fetch("/api/products/by-partner", {
