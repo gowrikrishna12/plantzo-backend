@@ -115,5 +115,30 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
-module.exports = router;
+// ✅ NEW POST route for submitting ratings
+router.post("/:orderId/rating", async (req, res) => {
+    try {
+        const { orderId } = req.params;
+        const { rating } = req.body;
 
+        if (!rating || rating < 1 || rating > 5) {
+            return res.status(400).json({ success: false, message: "Invalid rating value" });
+        }
+
+        const updatedOrder = await Order.findOneAndUpdate(
+            { orderId },
+            { isRated: true, rating },
+            { new: true }
+        );
+
+        if (!updatedOrder) {
+            return res.status(404).json({ success: false, message: "Order not found" });
+        }
+
+        res.status(200).json({ success: true, message: "Rating submitted successfully", data: updatedOrder });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Error submitting rating", error: error.message });
+    }
+});
+
+module.exports = router;

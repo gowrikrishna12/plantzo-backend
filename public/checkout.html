@@ -3,86 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plantzo Checkout Page</title>
+  <title>Checkout - Plantzo</title>
   <link rel="stylesheet" href="checkout.css">
 </head>
 <body>
   <header>
-    <h1>Plantzo</h1>
+    <h1>Plantzo - Checkout</h1>
   </header>
-  <div class="container">
-    <button class="back-button" onclick="goBack()">← Back</button>
 
-    <!-- Order Summary Section -->
-    <section class="card">
+  <main>
+    <div class="container">
+      <button type="button" id="back-button" class="btn">Back</button>
+
       <h2>Order Summary</h2>
       <div id="order-summary">
-        <!-- Dynamically populated content -->
-        <p>Your cart is empty. Please go back and add items.</p>
+        <!-- Order details will be dynamically added here -->
       </div>
       <div id="order-total">
-        <!-- Total price will be displayed here -->
+        <!-- Total price will be dynamically added here -->
       </div>
-    </section>
-
-    <section class="card">
-      <h2>Enter Delivery Details</h2>
       <form id="checkout-form">
         <div class="form-group">
-          <label for="name">Full Name</label>
-          <input type="text" id="name" placeholder="Full name" required>
+          <label for="name">Name:</label>
+          <input type="text" id="name" placeholder="Enter your name" required>
         </div>
         <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <input type="text" id="phone" placeholder="Enter phone number" maxlength="10" required>
+          <label for="email">Email:</label>
+          <input type="email" id="email" placeholder="Enter your email" required>
         </div>
         <div class="form-group">
-          <label for="address1">Flat, House no., Building</label>
-          <input type="text" id="address1" placeholder="e.g. 123, ABC Apartments" required>
+          <label for="phone">Phone:</label>
+          <input type="text" id="phone" placeholder="Enter your phone number" required>
         </div>
         <div class="form-group">
-          <label for="address2">Area, Street</label>
-          <input type="text" id="address2" placeholder="e.g. MG Road, Sector 12" required>
+          <label for="address1">Address Line 1:</label>
+          <input type="text" id="address1" placeholder="Enter your address line 1" required>
         </div>
         <div class="form-group">
-          <label for="pincode">Pincode</label>
-          <input type="text" id="pincode" placeholder="6-digit pincode" maxlength="6" required>
+          <label for="address2">Address Line 2:</label>
+          <input type="text" id="address2" placeholder="Enter your address line 2" required>
         </div>
         <div class="form-group">
-          <label for="city">Town/City</label>
-          <input type="text" id="city" placeholder="Enter town or city" required>
+          <label for="pincode">Pincode:</label>
+          <input type="text" id="pincode" placeholder="Enter your pincode" required>
         </div>
         <div class="form-group">
-          <label for="state">State</label>
-          <input type="text" id="state" placeholder="Enter state" required>
+          <label for="city">City:</label>
+          <input type="text" id="city" placeholder="Enter your city" required>
         </div>
+        <div class="form-group">
+          <label for="state">State:</label>
+          <input type="text" id="state" placeholder="Enter your state" required>
+        </div>
+        <div class="form-group">
+          <label>Payment Method:</label>
+          <div>
+            <input type="radio" id="cod" name="payment-method" value="COD" required>
+            <label for="cod">Cash on Delivery</label>
+          </div>
+          <div>
+            <input type="radio" id="credit-card" name="payment-method" value="Credit Card">
+            <label for="credit-card">Credit Card</label>
+          </div>
+          <div>
+            <input type="radio" id="debit-card" name="payment-method" value="Debit Card">
+            <label for="debit-card">Debit Card</label>
+          </div>
+          <div>
+            <input type="radio" id="upi" name="payment-method" value="UPI">
+            <label for="upi">UPI</label>
+          </div>
+        </div>
+        <button type="button" id="place-order-button" class="btn">Place Order</button>
       </form>
-    </section>
+    </div>
+  </main>
 
-    <section class="card">
-      <h2>Select Payment Method</h2>
-      <div class="payment-group">
-        <label>
-          <input type="radio" name="payment-method" value="COD" required>
-          Cash on Delivery (COD)
-        </label>
-        <label>
-          <input type="radio" name="payment-method" value="Credit/Debit Card">
-          Credit/Debit Card
-        </label>
-        <label>
-          <input type="radio" name="payment-method" value="Net Banking">
-          Net Banking
-        </label>
-        <label>
-          <input type="radio" name="payment-method" value="UPI">
-          UPI
-        </label>
-      </div>
-    </section>
-
-    <button class="submit-button" onclick="placeOrder()">Place Order</button>
-  </div>
   <script src="checkout.js"></script>
 </body>
 </html>
