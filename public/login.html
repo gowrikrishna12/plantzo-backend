@@ -160,62 +160,76 @@
         </div>
     </div>
     <script>
-        document.getElementById("loginForm").addEventListener("submit", async function (event) {
-            event.preventDefault();
-    
-            const email = document.getElementById("email").value.trim();
-            const password = document.getElementById("password").value.trim();
-            const selectedRole = document.getElementById("role").value.trim();
-    
-            if (!selectedRole) {
-                alert("Please select a role.");
-                return;
-            }
-    
-            try {
-                // Dynamically set the API URL
-                const apiUrl = `${window.location.origin}/api/users/login`;
-    
-                const response = await fetch(apiUrl, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email, password }),
-                });
-    
-                const data = await response.json();
-    
-                if (response.ok) {
-                    // ✅ Prevent users from selecting an incorrect role
-                    if (selectedRole !== data.user.role) {
-                        alert(`Incorrect role selection! You are registered as a "${data.user.role}".`);
-                        return;
-                    }
-    
-                    localStorage.setItem("user", JSON.stringify(data));
-    
-                    alert("Login successful! Redirecting...");
-    
-                    // ✅ Redirect users based on role
-                    if (data.user.role === "admin") {
-                        window.location.href = "adminDashboard.html";
-                    } else if (data.user.role === "nurserypartner") {
-                        window.location.href = "nursery_dashboard.html";
-                    } else {
-                        window.location.href = "landing.html";
-                    }
-                } else {
-                    alert(data.message || "Login failed. Please try again.");
-                }
-            } catch (error) {
-                console.error("Error during login:", error);
-                alert("An error occurred. Please check your internet connection.");
-            }
+    document.getElementById("loginForm").addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const selectedRole = document.getElementById("role").value.trim();
+
+    if (!selectedRole) {
+        alert("Please select a role.");
+        return;
+    }
+
+    try {
+        let apiUrl = `${window.location.origin}/api/users/login`;
+        let loginData = { email, password };
+
+        if (selectedRole === "nurserypartner") {
+            apiUrl = `${window.location.origin}/api/partners/login`;
+            loginData = { email, password }; // Fix: Use 'email' for partners
+        }
+
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(loginData),
         });
+
+        console.log("Login Response:", response); // Debugging
+
+        const data = await response.json();
+
+        if (response.ok) {
+            if (selectedRole === "nurserypartner") {
+                // Partner login
+                localStorage.setItem("token", data.token); // Store token for partners
+                alert("Login successful! Redirecting...");
+                window.location.href = "nursery_dashboard.html"; // Redirect partner
+            } else {
+                // User or admin login
+                if (selectedRole !== data.user.role) {
+                    alert(`Incorrect role selection! You are registered as a "${data.user.role}".`);
+                    return;
+                }
+                localStorage.setItem("user", JSON.stringify(data));
+                alert("Login successful! Redirecting...");
+                if (data.user.role === "admin") {
+                    window.location.href = "adminDashboard.html";
+                } else {
+                    window.location.href = "landing.html";
+                }
+            }
+        } else {
+            alert(data.message || "Login failed. Please try again.");
+        }
+    } catch (error) {
+        console.error("Error during login:", error);
+        alert("An error occurred. Please check your internet connection.");
+    }
+});
+
     </script>
     
         
 </body>
 </html>
+
+
+
+    
+    
 
 
 

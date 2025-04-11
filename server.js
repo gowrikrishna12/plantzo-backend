@@ -27,7 +27,7 @@
   const orderRoutes = require("./routes/orderRoutes");
   const productRoutes = require("./routes/productRoutes");
   const userRoutes = require("./routes/userRoutes");
-  
+  const partnerRoutes = require('./routes/partnerRoutes');
   
   
   // ✅ MongoDB Connection
@@ -48,7 +48,7 @@
           app.use("/api/admin/products", productRoutes); // Adjusted route path for products
           app.use("/api/users", userRoutes); // User-related endpoints
           app.use("/api/products", productRoutes);
-         
+          app.use('/api/partners', partnerRoutes);
       const PORT = process.env.PORT || 5000;
       app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));
     })

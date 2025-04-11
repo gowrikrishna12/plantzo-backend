@@ -22,6 +22,28 @@ async function renderOrders() {
                     </div>
                 `).join("");
 
+                let ratingHTML = '';
+                if (order.rating) {
+                    // If rating exists, display it
+                    ratingHTML = `<p><strong>Your Rating:</strong> ${order.rating} Stars</p>`;
+                } else if (order.status === "Delivered") {
+                    // If delivered and no rating, show the rating form
+                    ratingHTML = `
+                        <div class="rating-form">
+                            <label for="rating-${order.orderId}">Rate Your Order:</label>
+                            <select id="rating-${order.orderId}" class="rating-select">
+                                <option value="" disabled selected>Select rating</option>
+                                <option value="1">1 Star</option>
+                                <option value="2">2 Stars</option>
+                                <option value="3">3 Stars</option>
+                                <option value="4">4 Stars</option>
+                                <option value="5">5 Stars</option>
+                            </select>
+                            <button class="btn submit-rating-btn" data-order-id="${order.orderId}">Submit Rating</button>
+                        </div>
+                    `;
+                }
+
                 // Add status and rating functionality
                 orderCard.innerHTML = `
                     <h3>Order ID: ${order.orderId}</h3>
@@ -33,33 +55,14 @@ async function renderOrders() {
                         <p class="order-status ${order.status.toLowerCase()}">
                             <strong>Status:</strong> ${order.status}
                         </p>
+                        ${ratingHTML}
                     </div>
                 `;
-
-                // If status is "Delivered", add rating functionality
-                if (order.status === "Delivered") {
-                    const ratingForm = document.createElement("div");
-                    ratingForm.className = "rating-form";
-                    ratingForm.innerHTML = `
-                        <label for="rating-${order.orderId}">Rate Your Order:</label>
-                        <select id="rating-${order.orderId}" class="rating-select">
-                            <option value="" disabled selected>Select rating</option>
-                            <option value="1">1 Star</option>
-                            <option value="2">2 Stars</option>
-                            <option value="3">3 Stars</option>
-                            <option value="4">4 Stars</option>
-                            <option value="5">5 Stars</option>
-                        </select>
-                        <button class="btn submit-rating-btn" data-order-id="${order.orderId}">Submit Rating</button>
-                    `;
-
-                    orderCard.appendChild(ratingForm);
-                }
 
                 ordersList.appendChild(orderCard);
             });
 
-            // Add event listeners to handle rating submission
+            // Add event listeners to handle rating submission (only if rating form exists)
             document.querySelectorAll(".submit-rating-btn").forEach(button => {
                 button.addEventListener("click", async event => {
                     const orderId = event.target.getAttribute("data-order-id");
@@ -109,3 +112,6 @@ document.getElementById('back-button').addEventListener('click', () => {
 
 // Render orders on page load
 renderOrders();
+
+
+

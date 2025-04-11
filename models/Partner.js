@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-console.log("Partner model is being required at:", new Error().stack);
+//console.log("Partner model is being required at:", new Error().stack);
 
 // Define the schema (combine fields from both schemas)
 const partnerSchema = new mongoose.Schema({
